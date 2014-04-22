@@ -36,7 +36,7 @@ public class PhonoBlocksUI implements Observer {
   private NGram selectedGrapheme;
   private int turn;
 
-  public static final int NUM_POSITIONS = 7;
+  public static final int NUM_POSITIONS = 8;
   float[][] colorsAtEachPosition;
 
   public PhonoBlocksUI(PhonoBlocks canvas_) {
@@ -101,8 +101,8 @@ public class PhonoBlocksUI implements Observer {
   }
 
   /*
-	 * 
-   	 */
+   * 
+      */
   public void handleLetterPlacement(String letter, int relativePosition) {
     rememberCurrentLetterAsNGram(letter);
     renderLetterToTileIfPossible(relativePosition);
@@ -113,7 +113,9 @@ public class PhonoBlocksUI implements Observer {
   private void rememberNewColorsAtTilePositions() {
     int index=0;
     for (GramTile gt : gramTiles) {
-      Color col = SpeechSoundColorMap.getColorForSpeechSound(gt.getPhonogram().sound);
+      Color col=null;
+      if (gt.hasPhonogram())
+        col = SpeechSoundColorMap.getColorForSpeechSound(gt.getPhonogram().sound);
       col=(col==null?new Color(0, 0, 0):col);
       putRGBValuesAtPosition(index, col);
       index++;
@@ -130,7 +132,7 @@ public class PhonoBlocksUI implements Observer {
   }
 
 
-/* getter method for the array of colors that appear at each position*/
+  /* getter method for the array of colors that appear at each position*/
   public float[][] getColorsAtEachPosition() {
     return colorsAtEachPosition;
   }
@@ -267,8 +269,8 @@ public class PhonoBlocksUI implements Observer {
   }
 
   /*
-	 * temporary methods for testing
-   	 */
+   * temporary methods for testing
+      */
   public LinkedList<Tile> getTiles() {
     return tiles;
   }
